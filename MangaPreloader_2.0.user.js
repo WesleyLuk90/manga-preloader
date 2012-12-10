@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        MangaPreloader 2.0
-// @namespace   http://code.google.com/p/manga-preloader/
+// @namespace   https://github.com/WesleyLuk90/manga-preloader
 // @description Preloads Manga
 // @include     http://mangafox.me/*
 // @include     http://www.batoto.net/*
