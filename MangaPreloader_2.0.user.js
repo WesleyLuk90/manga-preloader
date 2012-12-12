@@ -43,24 +43,6 @@ var websites = [
 		name: "MangaFox",
 		url: /http:\/\/mangafox\.me.*/gi,
 		init: function(){
-			var self = this;
-			var href = $('link[type="application/rss+xml"]').attr('href');
-			this.nextChapter = null
-			this.previousChapter = null;
-			var firstPageURL = this.getPageURLs()[0];
-			$.get(href, function(data){
-				var links = $('item link', data);
-				for(var i = 0; i < links.length; i++){
-					if($(links[i]).text() == firstPageURL){
-						if( i > 0){
-							self.nextChapter = $(links[i-1]).text();
-						}
-						if( i < links.length - 1){
-							self.previousChapter = $(links[i+1]).text();
-						}
-					}
-				}
-			});
 		},
 		mangaPageCheck: function(){
 			return $('#image').length > 0;
@@ -89,10 +71,18 @@ var websites = [
 			return $('#back').attr('href');
 		},
 		getNextChapter: function(){
-			return this.nextChapter;
+			var select = $('select#top_chapter_list:first')[0];
+			if(select.selectedIndex == select.options.length - 1){
+				return null;
+			}
+			return this.getTitlePage() + select.options[select.selectedIndex + 1].value + "/1.html";
 		},
 		getPreviousChapter: function(){
-			return this.previousChapter;
+			var select = $('select#top_chapter_list:first')[0];
+			if(select.selectedIndex == 0){
+				return null;
+			}
+			return this.getTitlePage() + select.options[select.selectedIndex - 1].value + "/1.html";
 		},
 	},
 	{
@@ -344,6 +334,7 @@ $(function(){
 			if(pageIndex == newPageIndex){
 				return;
 			}
+			$(window).scrollTop(0);
 			if(newPageIndex < 0){
 				Elements.showPreviousChapterText();
 				var location = Website.getPreviousChapter();
@@ -370,7 +361,6 @@ $(function(){
 			ImageCache.updateCurrentImage();
 			ImageLoader.loadPageDispatcher();
 			window.location.hash = "#" + (newPageIndex + 1);
-			$(window).scrollTop(0);
 		};
 
 		var nextPage = function(){
