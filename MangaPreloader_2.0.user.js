@@ -5,7 +5,9 @@
 // @include     http://mangafox.me/*
 // @include     http://www.batoto.net/*
 // @include     http://www.mangareader.net/*
-// @version     2.0
+// @include     http://manga.animea.net/*
+// @version     2.01
+// @grant       none
 // ==/UserScript==
 
 /*! jQuery v1.8.3 jquery.com | jquery.org/license */
@@ -18,6 +20,7 @@ try {
 		log : function(){}
 	};
 }
+this.$ = this.jQuery = jQuery.noConflict(true);
 
 var config = {
 	forward_pages_to_load: 10, // How many pages ahead should we load, maximum
@@ -83,6 +86,49 @@ var websites = [
 				return null;
 			}
 			return this.getTitlePage() + select.options[select.selectedIndex - 1].value + "/1.html";
+		},
+	},
+	{
+		name: "AnimeA",
+		url: /http:\/\/manga\.animea\.net.*/gi,
+		init: function(){
+		},
+		mangaPageCheck: function(){
+			return $('.mangaimg').length > 0;
+		},
+		getPageURLs: function(){
+			var options = $('select.mangaselecter:first option');
+			var values = [];
+			var location = /(.*-)\d+\.html/g.exec(window.location.toString());
+			var base = location[1];
+			for(var i = 0; i < options.length; i++){
+				values.push(base + options[i].value + ".html");
+			}
+			return values;
+		},
+		getImageSource: function(documentObject, callback){
+			var src = $('.mangaimg', documentObject).attr('src');
+			callback(src);
+		},
+		getCurrentPageIndex: function(){
+			return $('select.mangaselecter:first')[0].selectedIndex;
+		},
+		getTitlePage: function(){
+			return getAbsolutePath() + $('h1 a:last').attr('href');
+		},
+		getNextChapter: function(){
+			var select = $('select#chapterlistheader:first')[0];
+			if(select.selectedIndex == select.options.length - 1){
+				return null;
+			}
+			return getAbsolutePath() + unsafeWindow.series_url + select.options[select.selectedIndex + 1].value + "-page-1.html";
+		},
+		getPreviousChapter: function(){
+			var select = $('select#chapterlistheader:first')[0];
+			if(select.selectedIndex == 0){
+				return null;
+			}
+			return getAbsolutePath() + unsafeWindow.series_url + select.options[select.selectedIndex - 1].value + "-page-1.html";
 		},
 	},
 	{

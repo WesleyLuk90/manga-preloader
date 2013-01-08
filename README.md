@@ -20,11 +20,10 @@ Browsers Supported
 
 Websites Supported
 ----
-  * !MangaFox
+  * MangaFox
   * Animea
   * Batoto
-  * !MangaReader
-  * !MangaShare
+  * MangaReader
 
- 
+
 Version 1.0 http://code.google.com/p/manga-preloader/
