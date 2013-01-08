@@ -564,14 +564,18 @@ $(function(){
 
 	var ARROW_KEY_LEFT = 37;
 	var ARROW_KEY_RIGHT = 39;
+	var Q_KEY = 81;
+	var W_KEY = 87;
 	var keyPressCallback = function(event){
-		if(event.keyCode == ARROW_KEY_RIGHT) {
+		if(event.keyCode == ARROW_KEY_RIGHT ||
+			event.keyCode == Q_KEY) {
 			try {
 				if(event.type == "keypress") PageNumberManager.nextPage();
 			} catch(e) { console.log(e); }
 			event.stopImmediatePropagation();
 			return false;
-		} else if(event.keyCode == ARROW_KEY_LEFT){
+		} else if(event.keyCode == ARROW_KEY_LEFT ||
+			event.keyCode == W_KEY){
 			try {
 				if(event.type == "keypress") PageNumberManager.previousPage();
 			} catch(e) { console.log(e); }
