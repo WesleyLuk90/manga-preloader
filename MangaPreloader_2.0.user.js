@@ -5,7 +5,7 @@
 // @include     http://mangafox.me/*
 // @include     http://www.batoto.net/*
 // @include     http://www.mangareader.net/*
-// @version     1
+// @version     2.0
 // ==/UserScript==
 
 /*! jQuery v1.8.3 jquery.com | jquery.org/license */
