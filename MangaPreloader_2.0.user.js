@@ -6,7 +6,7 @@
 // @include     http://www.batoto.net/*
 // @include     http://www.mangareader.net/*
 // @include     http://manga.animea.net/*
-// @version     2.03
+// @version     2.04
 // @grant       none
 // ==/UserScript==
 
@@ -610,18 +610,19 @@ $(function(){
 
 	var ARROW_KEY_LEFT = 37;
 	var ARROW_KEY_RIGHT = 39;
-	var Q_KEY = 81;
-	var W_KEY = 87;
+	var Q_KEY = 113;
+	var W_KEY = 119;
 	var keyPressCallback = function(event){
-		if(event.keyCode == ARROW_KEY_RIGHT ||
-			event.keyCode == Q_KEY) {
+		var code = event.keyCode || event.charCode;
+		if(code == ARROW_KEY_RIGHT ||
+			code == W_KEY) {
 			try {
 				if(event.type == "keypress") PageNumberManager.nextPage();
 			} catch(e) { console.log(e); }
 			event.stopImmediatePropagation();
 			return false;
-		} else if(event.keyCode == ARROW_KEY_LEFT ||
-			event.keyCode == W_KEY){
+		} else if(code == ARROW_KEY_LEFT ||
+			code == Q_KEY){
 			try {
 				if(event.type == "keypress") PageNumberManager.previousPage();
 			} catch(e) { console.log(e); }
