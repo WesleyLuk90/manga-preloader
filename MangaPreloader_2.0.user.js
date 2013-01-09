@@ -6,7 +6,7 @@
 // @include     http://www.batoto.net/*
 // @include     http://www.mangareader.net/*
 // @include     http://manga.animea.net/*
-// @version     2.02
+// @version     2.03
 // @grant       none
 // ==/UserScript==
 
@@ -71,7 +71,7 @@ var websites = [
 			return $('select.m:first')[0].selectedIndex;
 		},
 		getTitlePage: function(){
-			return $$("#series strong a").attr('href');
+			return $("#series strong a").attr('href');
 		},
 		getNextChapter: function(){
 			var select = $('select#top_chapter_list:first')[0];
