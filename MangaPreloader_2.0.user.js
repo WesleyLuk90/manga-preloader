@@ -6,7 +6,7 @@
 // @include     http://www.batoto.net/*
 // @include     http://www.mangareader.net/*
 // @include     http://manga.animea.net/*
-// @version     2.01
+// @version     2.02
 // @grant       none
 // ==/UserScript==
 
