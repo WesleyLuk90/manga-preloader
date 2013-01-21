@@ -6,7 +6,7 @@
 // @include     http://www.batoto.net/*
 // @include     http://www.mangareader.net/*
 // @include     http://manga.animea.net/*
-// @version     2.05
+// @version     2.06
 // @grant       none
 // ==/UserScript==
 
@@ -39,6 +39,13 @@ function getRelativePath(){
 // Returns the domain that absolute paths start from, does not include final slash
 function getAbsolutePath(){
 	return window.location.protocol + "//" + window.location.hostname;
+}
+
+var CONTENT_TYPE = "";
+if($.browser.mozilla){
+	CONTENT_TYPE = "text/html";
+} else {
+	CONTENT_TYPE = "application/xhtml+xml";
 }
 
 var websites = [
@@ -530,7 +537,7 @@ $(function(){
 			var doLoadPage = function(){
 				$.get(Website.pageURLs[pageNumber], function(text){
 					var parser = new DOMParser();
-					var doc = parser.parseFromString(text, "application/xhtml+xml");
+					var doc = parser.parseFromString(text, CONTENT_TYPE);
 					Website.getImageSource(doc, function(source){
 						var image = $('<img>');
 						image.one('load', function(){
@@ -613,15 +620,11 @@ $(function(){
 	var Q_KEY = 81;
 	var W_KEY = 87;
 	var keyPressCallback = function(event){
-		console.log(new jQuery.Event(event));
 		if(event.charCode){
 			var code = event.charCode;
 		} else {
 			var code = event.keyCode;
 		}
-		console.log(event.which);
-		console.log("key", event.keyCode);
-		console.log("char", event.charCode);
 		if(code == ARROW_KEY_RIGHT ||
 			code == W_KEY) {
 			try {
