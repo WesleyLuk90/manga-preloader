@@ -530,7 +530,7 @@ $(function(){
 			var doLoadPage = function(){
 				$.get(Website.pageURLs[pageNumber], function(text){
 					var parser = new DOMParser();
-					var doc = parser.parseFromString(text, "text/html");
+					var doc = parser.parseFromString(text, "application/xhtml+xml");
 					Website.getImageSource(doc, function(source){
 						var image = $('<img>');
 						image.one('load', function(){
@@ -610,21 +610,29 @@ $(function(){
 
 	var ARROW_KEY_LEFT = 37;
 	var ARROW_KEY_RIGHT = 39;
-	var Q_KEY = 113;
-	var W_KEY = 119;
+	var Q_KEY = 81;
+	var W_KEY = 87;
 	var keyPressCallback = function(event){
-		var code = event.keyCode || event.charCode;
+		console.log(new jQuery.Event(event));
+		if(event.charCode){
+			var code = event.charCode;
+		} else {
+			var code = event.keyCode;
+		}
+		console.log(event.which);
+		console.log("key", event.keyCode);
+		console.log("char", event.charCode);
 		if(code == ARROW_KEY_RIGHT ||
 			code == W_KEY) {
 			try {
-				if(event.type == "keypress") PageNumberManager.nextPage();
+				if(event.type == "keydown") PageNumberManager.nextPage();
 			} catch(e) { console.log(e); }
 			event.stopImmediatePropagation();
 			return false;
 		} else if(code == ARROW_KEY_LEFT ||
 			code == Q_KEY){
 			try {
-				if(event.type == "keypress") PageNumberManager.previousPage();
+				if(event.type == "keydown") PageNumberManager.previousPage();
 			} catch(e) { console.log(e); }
 			event.stopImmediatePropagation();
 			return false;
