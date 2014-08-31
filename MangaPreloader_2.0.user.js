@@ -4,6 +4,7 @@
 // @description Preloads Manga
 // @include     http://mangafox.me/*
 // @include     http://www.batoto.net/*
+// @include     http://bato.to/*
 // @include     http://www.mangareader.net/*
 // @include     http://manga.animea.net/*
 // @version     2.07
@@ -187,7 +188,7 @@ var websites = [
 	},
 	{
 		name: "Batoto",
-		url: /http:\/\/www.batoto\.net.*/gi,
+		url: /http:\/\/www.batoto\.net.*|http:\/\/bato.to.*/gi,
 		init: function(){
 		},
 		mangaPageCheck: function(){
